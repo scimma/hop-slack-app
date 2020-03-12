@@ -18,7 +18,7 @@ REPO_URL = https://github.com/scimma/scimma-slack-app
 
 .PHONY: test
 test :
-	python -m pytest -v --cov=scimma.apps.slack
+	python setup.py test
 
 .PHONY: lint
 lint :
