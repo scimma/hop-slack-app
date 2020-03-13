@@ -7,6 +7,7 @@ import argparse
 import configparser
 import requests
 import json
+import sys
 from genesis import streaming as stream
 
 
@@ -55,12 +56,13 @@ def _add_parser_args(parser):
         help="set Slack configuration from file ",
     )
 
+
 def parse_slack_config_file(slack_config_file):
     """
-        Description: 
+        Description:
             Parse slack configuration file
 
-        Args: 
+        Args:
             slack_config_file: Path to slack configuration file
 
         Returns:
@@ -68,56 +70,70 @@ def parse_slack_config_file(slack_config_file):
     """
 
     config = configparser.ConfigParser()
+    slack_config_dict  = {}
     try:
         config.read(slack_config_file)
-    except IOError:
-        print ("Error: Slack configuration file does not appear to exist.")
-        return 0
-    slack_config_dict = { 
-        'slack_token': config['SLACK_PROPERTIES']['SLACK_TOKEN'],
-        'slack_username' : config['SLACK_PROPERTIES']['SLACK_USERNAME'],
-        'slack_icon_url' : config['SLACK_PROPERTIES']['SLACK_ICON_URL'],
-        'topic_channel_mapping' : {} ,
-        'default_channel' : config['GENERAL']['DEFAULT_CHANNEL']}
-    
-    for key in config['TOPIC_CHANNEL_MAPPING'] :
-        slack_config_dict['topic_channel_mapping'][key] = config['TOPIC_CHANNEL_MAPPING'][key]
-    
+        slack_config_dict = {
+            'slack_token': config['SLACK_PROPERTIES']['SLACK_TOKEN'],
+            'slack_username': config['SLACK_PROPERTIES']['SLACK_USERNAME'],
+            'slack_icon_url': config['SLACK_PROPERTIES']['SLACK_ICON_URL'],
+            'topic_channel_mapping': {},
+            'default_channel': config['GENERAL']['DEFAULT_CHANNEL']}
 
+        for key in config['TOPIC_CHANNEL_MAPPING']:
+            slack_config_dict['topic_channel_mapping'][key] = config['TOPIC_CHANNEL_MAPPING'][key]
+    
+    except IOError:
+        print("Error: Slack configuration file does not appear to exist.")
+        sys.exit(1)
+    except configparser.NoSectionError as err:
+        print("Error: A section is missing. {0}".format(err))
+        sys.exit(1)
+    except configparser.DuplicateSectionError as err:
+        print("Error: Section duplication error. {0}".format(err))
+        # sys.exit(1)
+    except configparser.ParsingError as err:
+        print("Error: Slack configuration file parsing error. {0}".format(err))
+        sys.exit(1)
+    except:
+        print("Error: Error in Slack configuration file.")
+        sys.exit(1)
+    
     return slack_config_dict
+
 
 def post_message_to_slack(slack_config_dict, gcn_dict, json_dump):
     """
         Description:
             Post the received message to slack
-        
+
         Args:
             slack_config_dict: slack configurations' dictionary
             gcn_dict: message's dictionary
-            json_dump: 
+            json_dump:
                 True, if the message was received in json
                 Flase, otherwise
-        
+
         Returns:
             None
 
     """
 
     result = requests.post('https://slack.com/api/chat.postMessage', {
-        'token': slack_config_dict['slack_token'] ,
+        'token': slack_config_dict['slack_token'],
         'channel': "#"+slack_config_dict['default_channel'],
         'text': prepare_message(gcn_dict) if json_dump else gcn_dict,
         'icon_url': slack_config_dict['slack_icon_url'],
-        'username': slack_config_dict['slack_username'],}).json()
-    
-    print("Posting result: " , result)
-    
+        'username': slack_config_dict['slack_username'], }).json()
+
+    print("Posting result: ", result)
+
 
 def prepare_message(gcn_dict):
     """
-        Description: 
+        Description:
             Add pretty printing for message
-        
+
         Args:
             gcn_dict : Received GCN message
 
@@ -125,24 +141,26 @@ def prepare_message(gcn_dict):
             Formated GCN message for pretty printing
     """
 
-    gcn_json = json.loads(json.dumps(gcn_dict))
+    gcn_json = json.loads(json.dumps(gcn_dict))   
     gcn_header = gcn_json["header"]
     return ("*Title:* " + gcn_header['title'] + "\n" +
-           "*Number:* " + str(gcn_header['number']) + "\n" + 
-           "*Subject:* " + gcn_header['subject'] + "\n" + 
-           "*Date*: " + str(gcn_header['date']) + "\n" + 
+           "*Number:* " + str(gcn_header['number']) + "\n" +
+           "*Subject:* " + gcn_header['subject'] + "\n" +
+           "*Date*: " + str(gcn_header['date']) + "\n" +
            "*From:* " + gcn_header['from'] + "\n\n" + gcn_json['body'])
 
 # ------------------------------------------------
 # -- main
-def _main (args=None):
+
+
+def _main(args=None):
     """
-        Description: 
+        Description:
             Parse and post GCN circulars to slack channel.
 
         Args:
             args: command-line args
-        
+
         Returns:
             None
     """
@@ -158,9 +176,9 @@ def _main (args=None):
         config = {opt[0]: opt[1] for opt in (kv.split("=") for kv in args.config)}
     else:
         config = None
-    
+
     slack_config_dict = parse_slack_config_file(args.slack_config_file)
-    
+
     # load consumer options
 
     # defaults:
@@ -182,5 +200,6 @@ def _main (args=None):
 
     with stream.open(args.broker_url, "r", format=gcn_format, config=config, start_at=start_offset) as s:
         # for _,gcn_dict in s(timeout=timeout):
-        for _,gcn_dict in s:
-            post_message_to_slack(slack_config_dict, gcn_dict, json_dump)
+        for _, gcn_dict in s:
+            x = 1
+            # post_message_to_slack(slack_config_dict, gcn_dict, json_dump)
