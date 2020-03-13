@@ -27,21 +27,20 @@ def _add_parser_args(parser):
     config.add_argument(
         "-F", "--config-file", help="Set client configuration from file.",
     )
+
     config.add_argument(
-        "-X",
-        "--config",
-        action="append",
+        "-X", "--config", action="append", 
         help="Set client configuration via prop=val. Can be specified multiple times.",
     )
 
     # Subscription option
     parser.add_argument(
-        "-j", "--json", help="Request gcn output as raw json",
-        action='store_true',
+        "-j", "--json", help="Request gcn output as raw json", action="store_true",
     )
     parser.add_argument(
-        "-e", "--earliest", help="Request to stream from the earliest available Kafka offset",
-        action='store_true',
+        "-e", "--earliest", 
+        help="Request to stream from the earliest available Kafka offset", 
+        action="store_true",
     )
     parser.add_argument(
         "-t", "--timeout", help="Specifies the time (in seconds) to wait for new messages.",
@@ -73,14 +72,14 @@ def parse_slack_config_file(slack_config_file):
     try:
         config.read(slack_config_file)
         slack_config_dict = {
-            'slack_token': config['SLACK_PROPERTIES']['SLACK_TOKEN'],
-            'slack_username': config['SLACK_PROPERTIES']['SLACK_USERNAME'],
-            'slack_icon_url': config['SLACK_PROPERTIES']['SLACK_ICON_URL'],
-            'topic_channel_mapping': {},
-            'default_channel': config['GENERAL']['DEFAULT_CHANNEL']}
+            "slack_token": config["SLACK_PROPERTIES"]["SLACK_TOKEN"],
+            "slack_username": config["SLACK_PROPERTIES"]["SLACK_USERNAME"],
+            "slack_icon_url": config["SLACK_PROPERTIES"]["SLACK_ICON_URL"],
+            "topic_channel_mapping": {},
+            "default_channel": config["GENERAL"]["DEFAULT_CHANNEL"]}
 
-        for key in config['TOPIC_CHANNEL_MAPPING']:
-            slack_config_dict['topic_channel_mapping'][key] = config['TOPIC_CHANNEL_MAPPING'][key]
+        for key in config["TOPIC_CHANNEL_MAPPING"]:
+            slack_config_dict["topic_channel_mapping"][key] = config["TOPIC_CHANNEL_MAPPING"][key]
 
     except IOError:
         print("Error: Slack configuration file does not appear to exist.")
@@ -113,12 +112,16 @@ def post_message_to_slack(slack_config_dict, gcn_dict, json_dump):
 
     """
 
-    result = requests.post('https://slack.com/api/chat.postMessage', {
-        'token': slack_config_dict['slack_token'],
-        'channel': "#"+slack_config_dict['default_channel'],
-        'text': prepare_message(gcn_dict) if json_dump else gcn_dict,
-        'icon_url': slack_config_dict['slack_icon_url'],
-        'username': slack_config_dict['slack_username'], }).json()
+    result = requests.post(
+        "https://slack.com/api/chat.postMessage",
+        {
+            "token": slack_config_dict["slack_token"],
+            "channel": "#"+slack_config_dict["default_channel"],
+            "text": prepare_message(gcn_dict) if json_dump else gcn_dict,
+            "icon_url": slack_config_dict["slack_icon_url"],
+            "username": slack_config_dict["slack_username"], 
+        }
+    ).json()
 
     print("Posting result: ", result)
 
@@ -135,13 +138,13 @@ def prepare_message(gcn_dict):
             Formated GCN message for pretty printing
     """
 
-    gcn_json = json.loads(json.dumps(gcn_dict))   
+    gcn_json = json.loads(json.dumps(gcn_dict))
     gcn_header = gcn_json["header"]
-    return("*Title:* " + gcn_header['title'] + "\n" +
-           "*Number:* " + str(gcn_header['number']) + "\n" +
-           "*Subject:* " + gcn_header['subject'] + "\n" +
-           "*Date*: " + str(gcn_header['date']) + "\n" +
-           "*From:* " + gcn_header['from'] + "\n\n" + gcn_json['body'])
+    return("*Title:* " + gcn_header["title"] + "\n" +
+           "*Number:* " + str(gcn_header["number"]) + "\n" +
+           "*Subject:* " + gcn_header["subject"] + "\n" +
+           "*Date*: " + str(gcn_header["date"]) + "\n" +
+           "*From:* " + gcn_header["from"] + "\n\n" + gcn_json["body"])
 
 # ------------------------------------------------
 # -- main
@@ -176,24 +179,24 @@ def _main(args=None):
     # load consumer options
 
     # defaults:
-    start_offset = 'latest'
+    start_offset = "latest"
     timeout = 10
     json_dump = False
 
     if args.json:
         json_dump = True
     if args.earliest:
-        start_offset = 'earliest'
+        start_offset = "earliest"
     if args.timeout:
         timeout = int(args.timeout)
 
     # read from topic
 
     # assume json format for the gcn
-    gcn_format = 'json'
+    gcn_format = "json"
 
-    with stream.open(args.broker_url, "r", format=gcn_format, config=config, start_at=start_offset) as s:
-        # for _,gcn_dict in s(timeout=timeout):
-        for _, gcn_dict in s:
-            x = 1
-            # post_message_to_slack(slack_config_dict, gcn_dict, json_dump)
+    with stream.open(
+        args.broker_url, "r", format=gcn_format, config=config, start_at=start_offset
+    )as s:
+        for _,gcn_dict in s(timeout=timeout):
+            post_message_to_slack(slack_config_dict, gcn_dict, json_dump)
