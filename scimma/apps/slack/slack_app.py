@@ -85,19 +85,14 @@ def parse_slack_config_file(slack_config_file):
     
     except IOError:
         print("Error: Slack configuration file does not appear to exist.")
-        sys.exit(1)
     except configparser.NoSectionError as err:
         print("Error: A section is missing. {0}".format(err))
-        sys.exit(1)
     except configparser.DuplicateSectionError as err:
         print("Error: Section duplication error. {0}".format(err))
-        # sys.exit(1)
     except configparser.ParsingError as err:
         print("Error: Slack configuration file parsing error. {0}".format(err))
-        sys.exit(1)
     except:
         print("Error: Error in Slack configuration file.")
-        sys.exit(1)
     
     return slack_config_dict
 
