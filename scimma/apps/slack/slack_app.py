@@ -201,5 +201,4 @@ def _main(args=None):
     with stream.open(args.broker_url, "r", format=gcn_format, config=config, start_at=start_offset) as s:
         # for _,gcn_dict in s(timeout=timeout):
         for _, gcn_dict in s:
-            x = 1
-            # post_message_to_slack(slack_config_dict, gcn_dict, json_dump)
+            post_message_to_slack(slack_config_dict, gcn_dict, json_dump)
