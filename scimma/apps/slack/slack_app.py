@@ -7,7 +7,6 @@ import argparse
 import configparser
 import requests
 import json
-import sys
 from genesis import streaming as stream
 
 
@@ -70,7 +69,7 @@ def parse_slack_config_file(slack_config_file):
     """
 
     config = configparser.ConfigParser()
-    slack_config_dict  = {}
+    slack_config_dict = {}
     try:
         config.read(slack_config_file)
         slack_config_dict = {
@@ -82,23 +81,18 @@ def parse_slack_config_file(slack_config_file):
 
         for key in config['TOPIC_CHANNEL_MAPPING']:
             slack_config_dict['topic_channel_mapping'][key] = config['TOPIC_CHANNEL_MAPPING'][key]
-    
+
     except IOError:
         print("Error: Slack configuration file does not appear to exist.")
-        sys.exit(1)
     except configparser.NoSectionError as err:
         print("Error: A section is missing. {0}".format(err))
-        sys.exit(1)
     except configparser.DuplicateSectionError as err:
         print("Error: Section duplication error. {0}".format(err))
-        # sys.exit(1)
     except configparser.ParsingError as err:
         print("Error: Slack configuration file parsing error. {0}".format(err))
-        sys.exit(1)
     except:
         print("Error: Error in Slack configuration file.")
-        sys.exit(1)
-    
+
     return slack_config_dict
 
 
@@ -143,7 +137,7 @@ def prepare_message(gcn_dict):
 
     gcn_json = json.loads(json.dumps(gcn_dict))   
     gcn_header = gcn_json["header"]
-    return ("*Title:* " + gcn_header['title'] + "\n" +
+    return("*Title:* " + gcn_header['title'] + "\n" +
            "*Number:* " + str(gcn_header['number']) + "\n" +
            "*Subject:* " + gcn_header['subject'] + "\n" +
            "*Date*: " + str(gcn_header['date']) + "\n" +
