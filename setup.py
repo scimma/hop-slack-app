@@ -11,7 +11,7 @@ install_requires = [
     "scimma-client >= 0.0.4", "requests", "slackclient"
 ]
 extras_require = {
-    'dev': ['pytest', 'pytest-console-scripts', 'pytest-cov', 'flake8', 'flake8-black'],
+    'dev': ['pytest', 'pytest-console-scripts', 'pytest-cov', 'flake8', 'flake8-black', 'pytest-datadir'],
     'docs': ['sphinx', 'sphinx_rtd_theme', 'sphinxcontrib-programoutput'],
 }
 
