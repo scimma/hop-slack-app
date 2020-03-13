@@ -25,8 +25,7 @@ setup(
     author_email = 's_elsayed@ucsb.edu',
     license = 'BSD 3-Clause',
     packages = ['scimma.apps.slack'],
-
-    entry_points = {
+        entry_points = {
         'console_scripts': [
             'scimma-slack = scimma.apps.slack.__main__:main',
         ],
