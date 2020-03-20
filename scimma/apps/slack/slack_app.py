@@ -80,11 +80,11 @@ def parse_slack_config_file(slack_config_file):
     except IOError:
         raise IOError("Error: Slack configuration file does not appear to exist.")
     except configparser.NoSectionError as err:
-         raise configparser.NoSectionError("Error: A section is missing)
+         raise configparser.NoSectionError("Error: A section is missing")
     except configparser.DuplicateSectionError as err:
-        raise configparser.DuplicateSectionError("Error: Section duplication error)
+        raise configparser.DuplicateSectionError("Error: Section duplication error")
     except configparser.ParsingError as err:
-        raise configparser.ParsingError("Error: Slack configuration file parsing error)
+        raise configparser.ParsingError("Error: Slack configuration file parsing error")
     except:
         raise Exception("Error: Error in Slack configuration file.")
 
@@ -127,11 +127,14 @@ def prepare_message(gcn_dict):
 
     gcn_json = json.loads(json.dumps(gcn_dict))
     gcn_header = gcn_json["header"]
-    return("*Title:* " + gcn_header["title"] + "\n" +
-           "*Number:* " + str(gcn_header["number"]) + "\n" +
-           "*Subject:* " + gcn_header["subject"] + "\n" +
-           "*Date*: " + str(gcn_header["date"]) + "\n" +
-           "*From:* " + gcn_header["from"] + "\n\n" + gcn_json["body"])
+    return (
+        "*Title:* {title}\n"
+        "*Number:* {number}\n"
+        "*Subject:* {subject}\n"
+        "*Date*: {date}\n"
+        "*From:* {from}\n\n"
+        "{body}"
+    ).format(**gcn_json)
 
 # ------------------------------------------------
 # -- main
