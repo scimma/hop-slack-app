@@ -7,12 +7,11 @@ import argparse
 import configparser
 import requests
 import json
-from genesis import streaming as stream
+from scimma.client import stream
 
 
 def _add_parser_args(parser):
-    """
-        Parse arguments for broker, configurations and options
+    """Parse arguments for broker, configurations and options
     """
 
     parser.add_argument(
@@ -56,13 +55,11 @@ def _add_parser_args(parser):
 
 
 def parse_slack_config_file(slack_config_file):
-    """
-        Description:
-            Parse slack configuration file
-
+    """Parse slack configuration file
+    
         Args:
             slack_config_file: Path to slack configuration file
-
+            
         Returns:
             Dictionary with slack configurations
     """
@@ -78,38 +75,30 @@ def parse_slack_config_file(slack_config_file):
             "topic_channel_mapping": {},
             "default_channel": config["GENERAL"]["DEFAULT_CHANNEL"]}
 
-        for key in config["TOPIC_CHANNEL_MAPPING"]:
-            slack_config_dict["topic_channel_mapping"][key] = config["TOPIC_CHANNEL_MAPPING"][key]
+        slack_config_dict["topic_channel_mapping"] = config.items("TOPIC_CHANNEL_MAPPING")
 
     except IOError:
-        print("Error: Slack configuration file does not appear to exist.")
+        raise IOError("Error: Slack configuration file does not appear to exist.")
     except configparser.NoSectionError as err:
-        print("Error: A section is missing. {0}".format(err))
+         raise configparser.NoSectionError("Error: A section is missing)
     except configparser.DuplicateSectionError as err:
-        print("Error: Section duplication error. {0}".format(err))
+        raise configparser.DuplicateSectionError("Error: Section duplication error)
     except configparser.ParsingError as err:
-        print("Error: Slack configuration file parsing error. {0}".format(err))
+        raise configparser.ParsingError("Error: Slack configuration file parsing error)
     except:
-        print("Error: Error in Slack configuration file.")
+        raise Exception("Error: Error in Slack configuration file.")
 
     return slack_config_dict
 
 
 def post_message_to_slack(slack_config_dict, gcn_dict, json_dump):
-    """
-        Description:
-            Post the received message to slack
-
+    """Post the received message to slack
         Args:
             slack_config_dict: slack configurations' dictionary
             gcn_dict: message's dictionary
             json_dump:
                 True, if the message was received in json
                 Flase, otherwise
-
-        Returns:
-            None
-
     """
 
     result = requests.post(
@@ -127,9 +116,7 @@ def post_message_to_slack(slack_config_dict, gcn_dict, json_dump):
 
 
 def prepare_message(gcn_dict):
-    """
-        Description:
-            Add pretty printing for message
+    """Add pretty printing for message
 
         Args:
             gcn_dict : Received GCN message
@@ -151,15 +138,10 @@ def prepare_message(gcn_dict):
 
 
 def _main(args=None):
-    """
-        Description:
-            Parse and post GCN circulars to slack channel.
+    """Parse and post GCN circulars to slack channel.
 
         Args:
             args: command-line args
-
-        Returns:
-            None
     """
     if not args:
         parser = argparse.ArgumentParser()
