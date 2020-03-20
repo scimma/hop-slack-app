@@ -45,8 +45,7 @@ def _set_up_parser():
 
 
 def set_up_cli():
-    """
-        Description: Set up CLI boilerplate for scimma app entry point.
+    """Set up CLI boilerplate for scimma app entry point.
     """
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     parser = _set_up_parser()
