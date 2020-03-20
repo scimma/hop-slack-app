@@ -24,8 +24,7 @@ def append_subparser(subparser, cmd, func):
 
 
 def _set_up_parser():
-    """
-        Description: Set up parser for scimma app entry point.
+    """Set up parser for scimma app entry point.
     """
     parser = argparse.ArgumentParser(prog="scimma-slack")
     parser.add_argument(
