@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 import pytest
-import json
-import re
 from unittest.mock import patch
+import configparser
 from scimma.apps.slack import slack_app
 from scimma.apps.slack import __version__
 
@@ -28,6 +27,8 @@ def test_message_preparation_for_slack(shared_datadir):
     with patch("scimma.apps.slack.slack_app.json.dumps") as mock_load:
         mock_load.return_value = test_content
         test_result = slack_app.prepare_message(test_content)
+        with open("file2.txt", "w") as f :
+            f.write(test_result)
         assert (
             test_result
             == (
@@ -36,14 +37,15 @@ def test_message_preparation_for_slack(shared_datadir):
         )
 
 
-
 def test_parse_slack_config(shared_datadir, capsys):
 
     # Normal configuration file
     config_file_path = str(shared_datadir / "test_data" / "slack_configuration.cfg")
     test_result = slack_app.parse_slack_config_file(str(config_file_path))
+    with open("file.txt", "w") as f:
+        f.write(str(test_result))
     assert (
-        json.dumps(test_result)
+        str(test_result)
         == (shared_datadir / "expected_data" / "parsed_slack_config.txt").read_text()
     )
 
@@ -51,16 +53,6 @@ def test_parse_slack_config(shared_datadir, capsys):
     config_file_path = str(
         shared_datadir / "test_data" / "slack_config_dup_section.cfg"
     )
-    test_result = slack_app.parse_slack_config_file(str(config_file_path))
-    captured = capsys.readouterr()
-    error_msg = captured.out
 
-    # replace the path in the captured error with empty string
-    pattern = re.compile(r"(\/.*?\.[\w:]+)")
-    match = pattern.findall(error_msg)
-    assert len(match) > 0
-    result = error_msg.replace(match[0], "", 1)
-    assert (
-        result
-        == "Error: Section duplication error. While reading from '' [line 15]: section 'GENERAL' already exists\n"
-    )
+    with pytest.raises(configparser.DuplicateSectionError):
+        test_result = slack_app.parse_slack_config_file(str(config_file_path))

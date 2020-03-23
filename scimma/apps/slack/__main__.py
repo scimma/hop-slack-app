@@ -6,6 +6,7 @@ import signal
 from . import __version__
 from . import slack_app
 
+
 def append_subparser(subparser, cmd, func):
 
     assert func.__doc__, "empty docstring: {}".format(func)
@@ -34,7 +35,8 @@ def _set_up_parser():
     subparser = parser.add_subparsers(
         title="Commands",
         metavar="subscribe --broker-url <Broker_URL> --slack-config-file <SLACK_CONFIG_FILE>",
-        dest="cmd")
+        dest="cmd",
+    )
     subparser.required = True
 
     # registering Slack app
