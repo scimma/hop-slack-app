@@ -1,0 +1,1 @@
+{'slack_token': 'xoxb-000000000000-000000000000-000000000000000000000000', 'slack_username': 'scimmamessenger', 'slack_icon_url': 'https://www.clipartkey.com/mpngs/b/210-2107495_astronomy-clip-art.png', 'topic_channel_mapping': [('test', 'Testing'), ('gcn', 'GCN_Circular')], 'default_channel': 'general'}

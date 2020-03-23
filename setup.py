@@ -11,7 +11,7 @@ install_requires = [
     "scimma-client >= 0.0.4", "requests", "slackclient"
 ]
 extras_require = {
-    'dev': ['pytest', 'pytest-console-scripts', 'pytest-cov', 'flake8', 'flake8-black'],
+    'dev': ['pytest', 'pytest-console-scripts', 'pytest-cov', 'flake8', 'flake8-black', 'pytest-datadir'],
     'docs': ['sphinx', 'sphinx_rtd_theme', 'sphinxcontrib-programoutput'],
 }
 
@@ -20,14 +20,12 @@ setup(
     description = 'This is an application for SCiMMA on Slack where you can receive GCN messages',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
-    url = 'https://github.com/scimma',
+    url = 'https://github.com/scimma/scimma-slack-app',
     author = 'Shereen Elsayed',
     author_email = 's_elsayed@ucsb.edu',
     license = 'BSD 3-Clause',
-
     packages = ['scimma.apps.slack'],
-
-    entry_points = {
+        entry_points = {
         'console_scripts': [
             'scimma-slack = scimma.apps.slack.__main__:main',
         ],
