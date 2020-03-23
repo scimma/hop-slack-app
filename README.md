@@ -2,6 +2,9 @@ This is an application for SCiMMA on Slack where you can receive GCN messages
 
 ## Quickstart 
 
+### Requirements:
+python >= 3.6
+
 The current status allows you to install SCiMMA-on-Slack app in your own personal workspace. It is not released for distibution.
 
 ### Slack Workspace Preparation
@@ -21,10 +24,9 @@ git clone https://github.com/scimma/scimma-slack-app
 ```
 2. In the repo local directory, run:
 ```
-python3 setup.py install
+python setup.py install
 ```
-Now, scimma-slack script is installed to /usr/local/python3.6/bin
-try: scimma-slack --version, if it worked then you are good to go. Otherwise, you may need to create an alias for it for now or a symbolic link
+try: scimma-slack --version
 
 3. Prepare Slack configurations file:
     The file is organized into three sections:
