@@ -31,7 +31,7 @@ lint :
 format :
 	# show diff via black
 	black tests --diff
-	black scimma/apps/slack --diff
+	black hop/apps/slack --diff
 
 .PHONY: doc
 doc :

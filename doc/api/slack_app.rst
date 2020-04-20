@@ -3,5 +3,5 @@
 slack.slack_app
 ####################################
 
-.. automodule:: scimma.apps.slack.slack_app
+.. automodule:: hop.apps.slack.slack_app
     :members:

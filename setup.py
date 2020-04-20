@@ -8,7 +8,7 @@ with open(os.path.join(this_dir, 'README.md'), 'rb') as f:
 
 # requirements
 install_requires = [
-    "scimma-client >= 0.0.4", "requests", "slackclient"
+    "hop-client >= 0.0.4", "requests", "slackclient"
 ]
 extras_require = {
     'dev': ['pytest', 'pytest-console-scripts', 'pytest-cov', 'flake8', 'flake8-black', 'pytest-datadir'],
@@ -16,18 +16,18 @@ extras_require = {
 }
 
 setup(
-    name = 'scimma-slack-app',
-    description = 'This is an application for SCiMMA on Slack where you can receive GCN messages',
+    name = 'hop-slack-app',
+    description = 'This is an application for Hop on Slack where you can receive GCN messages',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
     url = 'https://github.com/scimma/scimma-slack-app',
     author = 'Shereen Elsayed',
     author_email = 's_elsayed@ucsb.edu',
     license = 'BSD 3-Clause',
-    packages = ['scimma.apps.slack'],
+    packages = ['hop', 'hop.apps', 'hop.apps.slack'],
         entry_points = {
         'console_scripts': [
-            'scimma-slack = scimma.apps.slack.__main__:main',
+            'hop-slack = hop.apps.slack.__main__:main',
         ],
     },
 
@@ -36,7 +36,7 @@ setup(
     extras_require = extras_require,
     setup_requires = ['setuptools_scm'],
     use_scm_version = {
-        'write_to': 'scimma/apps/slack/_version.py'
+        'write_to': 'hop/apps/slack/_version.py'
     },
 
     classifiers = [

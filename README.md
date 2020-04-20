@@ -1,11 +1,11 @@
-This is an application for SCiMMA on Slack where you can receive GCN messages
+This is an application for Hop on Slack where you can receive GCN messages
 
 ## Quickstart 
 
 ### Requirements:
 python >= 3.6
 
-The current status allows you to install SCiMMA-on-Slack app in your own personal workspace. It is not released for distibution.
+The current status allows you to install Hop-on-Slack app in your own personal workspace. It is not released for distibution.
 
 ### Slack Workspace Preparation
  1. If you don't have a Slack workspace, create one https://slack.com/create#email
@@ -26,7 +26,7 @@ git clone https://github.com/scimma/scimma-slack-app
 ```
 python setup.py install
 ```
-try: scimma-slack --version
+try: Hop-slack --version
 
 3. Prepare Slack configurations file:
     The file is organized into three sections:
@@ -37,7 +37,7 @@ try: scimma-slack --version
     ``` 
     [SLACK_PROPERTIES]
     SLACK_TOKEN= xoxb-*****
-    SLACK_USERNAME= SCiMMA_SlackBot
+    SLACK_USERNAME= Hop_SlackBot
     [TOPIC_CHANNEL_MAPPING]
     test= Testing
     gcn= GCN_Circular
@@ -45,16 +45,16 @@ try: scimma-slack --version
     DEFAULT_CHANNEL = general
     CREATE_CHANNEL = true
     ```    
-4. Run scimma-slack:
-     ``` scimma-slack subscribe -b <Broker_URL> -S <Slack_Config_File> ```
+4. Run Hop-slack:
+     ``` hop-slack subscribe -b <Broker_URL> -S <Slack_Config_File> ```
 
 In case you have a server container running as: 
 
-```docker run -p 9092:9092 -v /tmp/kafka-logs:/tmp/kafka-logs -v /tmp/shared:/root/shared  --hostname localhost scimma/server --noSecurity```
+```docker run -p 9092:9092 -v /tmp/kafka-logs:/tmp/kafka-logs -v /tmp/shared:/root/shared  --hostname localhost hop/server --noSecurity```
 
 You can have a slack command as
 
-```scimma-slack subscribe -b kafka://localhost:9092/test -S /mnt/config_files/slack_config.cfg  -e```
+```hop-slack subscribe -b kafka://localhost:9092/test -S /mnt/config_files/slack_config.cfg  -e```
 
 Where:
 * -b or --broker-url : Broker URL

@@ -1,6 +1,6 @@
 .. _api:
 
-scimma-slack-app API
+hop-slack-app API
 ##########################################
 
 .. toctree::

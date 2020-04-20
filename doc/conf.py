@@ -120,4 +120,4 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'scimma-clientdoc'
+htmlhelp_basename = 'hop-clientdoc'

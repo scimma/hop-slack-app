@@ -3,19 +3,19 @@
 import pytest
 from unittest.mock import patch
 import configparser
-from scimma.apps.slack import slack_app
-from scimma.apps.slack import __version__
+from hop.apps.slack import slack_app
+from hop.apps.slack import __version__
 
 
 @pytest.mark.script_launch_mode("subprocess")
 def test_help_version(script_runner):
-    ret = script_runner.run("scimma-slack", "--help")
+    ret = script_runner.run("hop-slack", "--help")
     assert ret.success
 
-    ret = script_runner.run("scimma-slack", "--version")
+    ret = script_runner.run("hop-slack", "--version")
     assert ret.success
 
-    assert ret.stdout == f"scimma-slack version {__version__}\n"
+    assert ret.stdout == f"hop-slack version {__version__}\n"
     assert ret.stderr == ""
 
 
@@ -24,10 +24,10 @@ def test_message_preparation_for_slack(shared_datadir):
     test_content = (
         shared_datadir / "test_data" / "26936_gcn_circular_dict.json"
     ).read_text()
-    with patch("scimma.apps.slack.slack_app.json.dumps") as mock_load:
+    with patch("hop.apps.slack.slack_app.json.dumps") as mock_load:
         mock_load.return_value = test_content
         test_result = slack_app.prepare_message(test_content)
-        with open("file2.txt", "w") as f :
+        with open("file2.txt", "w") as f:
             f.write(test_result)
         assert (
             test_result
