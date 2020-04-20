@@ -24,7 +24,7 @@ setup(
     author = 'Shereen Elsayed',
     author_email = 's_elsayed@ucsb.edu',
     license = 'BSD 3-Clause',
-    packages = ['hop', 'hop.apps', 'hop.apps.slack'],
+    packages = ['hop.apps.slack'],
         entry_points = {
         'console_scripts': [
             'hop-slack = hop.apps.slack.__main__:main',
