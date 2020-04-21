@@ -22,7 +22,7 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 # -- Project information -----------------------------------------------------
 
-project = u'scimma-slack-app'
+project = u'hop-slack-app'
 copyright = u'2020, Shereen Elsayed'
 author = u'Shereen Elsayed'
 

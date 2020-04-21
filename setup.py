@@ -20,7 +20,7 @@ setup(
     description = 'This is an application for Hop on Slack where you can receive GCN messages',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
-    url = 'https://github.com/scimma/scimma-slack-app',
+    url = 'https://github.com/scimma/hop-slack-app',
     author = 'Shereen Elsayed',
     author_email = 's_elsayed@ucsb.edu',
     license = 'BSD 3-Clause',

@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [] - 2020-04-20
+## [0.0.2] - 2020-04-20
+- Changed the name from scimma to hop
 
 ## [0.0.1] - 2020-03-06
 ### Added
 - Initial Release.
 
-[Unreleased]: https://github.com/scimma/scimma-slack-app/compare/v...HEAD
-[]: https://github.com/scimma/scimma-slack-app/releases/tag/v
+[Unreleased]: https://github.com/scimma/hop-slack-app/compare/v...HEAD
+[]: https://github.com/scimma/hop-slack-app/releases/tag/v
 [0.0.1]: https://github.com/scimma/releases/tag/v0.0.1

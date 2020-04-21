@@ -14,7 +14,7 @@ help :
 	@echo
 
 VERSION ?= $(shell python setup.py --version)
-REPO_URL = https://github.com/scimma/scimma-slack-app
+REPO_URL = https://github.com/scimma/hop-slack-app
 
 .PHONY: test
 test :

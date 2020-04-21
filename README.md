@@ -20,7 +20,7 @@ The current status allows you to install Hop-on-Slack app in your own personal w
 ### Application Preparation    
 1. Clone the repo
 ```
-git clone https://github.com/scimma/scimma-slack-app
+git clone https://github.com/scimma/hop-slack-app
 ```
 2. In the repo local directory, run:
 ```
