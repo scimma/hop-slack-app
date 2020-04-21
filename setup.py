@@ -8,7 +8,7 @@ with open(os.path.join(this_dir, 'README.md'), 'rb') as f:
 
 # requirements
 install_requires = [
-    "hop-client >= 0.0.5", "requests", "slackclient"
+    "hop-client >= 0.0.5a1", "requests", "slackclient"
 ]
 extras_require = {
     'dev': ['pytest', 'pytest-console-scripts', 'pytest-cov', 'flake8', 'flake8-black', 'pytest-datadir'],
