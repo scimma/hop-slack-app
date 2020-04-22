@@ -7,7 +7,7 @@ import argparse
 import configparser
 import requests
 import json
-from genesis import streaming as stream
+from hop import stream
 
 
 def _add_parser_args(parser):

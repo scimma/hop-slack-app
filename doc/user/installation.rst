@@ -5,18 +5,18 @@ Installation
 .. contents::
    :local:
 
-You can install scimma-slack-app via pip or from source.
+You can install hop-slack-app via pip or from source.
 
 To install with pip:
 
 .. code:: bash
 
-   pip install -U scimma-slack-app
+   pip install -U hop-slack-app
 
 To install from source:
 
 .. code:: bash
 
-    tar -xzf scimma-slack-app-x.y.z.tar.gz
-    cd scimma-slack-app-x.y.z
+    tar -xzf hop-slack-app-x.y.z.tar.gz
+    cd hop-slack-app-x.y.z
     python setup.py install

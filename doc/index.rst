@@ -1,4 +1,4 @@
-scimma-slack-app documentation
+Hop-slack-app documentation
 ====================================================
 
 User's Guide

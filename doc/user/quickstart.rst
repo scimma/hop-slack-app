@@ -7,7 +7,7 @@ Quickstart
 
 .. code:: python
 
-    from scimma.apps import slack
+    from hop.apps import slack
 
 
 This will do something.

@@ -1,1 +1,1 @@
-scimma-app==0.0.4
+hop-app==0.0.4
