@@ -10,13 +10,6 @@ User's Guide
    user/installation
    user/quickstart
 
-API Reference
--------------
-
-.. toctree::
-   :maxdepth: 2
-
-   api/api
 
 Indices and tables
 ==================

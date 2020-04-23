@@ -5,18 +5,23 @@ Installation
 .. contents::
    :local:
 
-You can install scimma-slack-app via pip or from source.
+Hop slack app can be installed from gitbub.
 
-To install with pip:
+Requirements
+-------------
 
-.. code:: bash
+Python >= 3.6
 
-   pip install -U scimma-slack-app
+
+Steps
+------
 
 To install from source:
 
 .. code:: bash
 
-    tar -xzf scimma-slack-app-x.y.z.tar.gz
-    cd scimma-slack-app-x.y.z
+   git clone https://github.com/scimma/scimma-slack-app
+
+.. code:: bash
+
     python setup.py install
