@@ -6,12 +6,13 @@ Installation
    :local:
 
 Hop slack app can be installed from gitbub.
+==========================================
+
 
 Requirements
 -------------
 
 Python >= 3.6
-
 
 Steps
 ------

@@ -25,9 +25,9 @@ def append_subparser(subparser, cmd, func):
 
 
 def _set_up_parser():
-    """Set up parser for scimma app entry point.
+    """Set up parser for hop-slack app entry point.
     """
-    parser = argparse.ArgumentParser(prog="scimma-slack")
+    parser = argparse.ArgumentParser(prog="hop-slack")
     parser.add_argument(
         "--version", action="version", version=f"%(prog)s version {__version__}",
     )
@@ -47,7 +47,7 @@ def _set_up_parser():
 
 
 def set_up_cli():
-    """Set up CLI boilerplate for scimma app entry point.
+    """Set up CLI boilerplate for hop-slack app entry point.
     """
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     parser = _set_up_parser()
