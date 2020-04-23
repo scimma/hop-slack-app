@@ -67,11 +67,11 @@ Run application
         DEFAULT_CHANNEL = general
         CREATE_CHANNEL = true
 
-#. Run scimma-slack 
+#. Run hop-slack 
 
 .. code:: bash
 
-    scimma-slack subscribe -b <Broker_URL> -S <Slack_Config_File>
+    hop-slack subscribe -b <Broker_URL> -S <Slack_Config_File>
 
 In case you have a server container running as:
 
@@ -83,7 +83,7 @@ You can have a slack command as
 
 .. code:: bash
 
-    scimma-slack subscribe -b kafka://localhost:9092/test -S /mnt/config_files/slack_config.cfg -e
+    hop-slack subscribe -b kafka://localhost:9092/test -S /mnt/config_files/slack_config.cfg -e
 
 Where:
 

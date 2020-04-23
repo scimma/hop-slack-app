@@ -20,7 +20,7 @@ To install from source:
 
 .. code:: bash
 
-   git clone https://github.com/scimma/scimma-slack-app
+   git clone https://github.com/scimma/hop-slack-app
 
 .. code:: bash
 
