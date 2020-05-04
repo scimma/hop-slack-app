@@ -5,18 +5,24 @@ Installation
 .. contents::
    :local:
 
-You can install hop-slack-app via pip or from source.
+Hop slack app can be installed from github.
+==========================================
 
-To install with pip:
 
-.. code:: bash
+Requirements
+-------------
 
-   pip install -U hop-slack-app
+Python >= 3.6
+
+Steps
+------
 
 To install from source:
 
 .. code:: bash
 
-    tar -xzf hop-slack-app-x.y.z.tar.gz
-    cd hop-slack-app-x.y.z
+   git clone https://github.com/scimma/hop-slack-app
+
+.. code:: bash
+
     python setup.py install
