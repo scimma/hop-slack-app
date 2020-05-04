@@ -5,7 +5,7 @@ Installation
 .. contents::
    :local:
 
-Hop slack app can be installed from gitbub.
+Hop slack app can be installed from github.
 ==========================================
 
 
