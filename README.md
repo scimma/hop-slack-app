@@ -1,5 +1,4 @@
 This is an application for Hop on Slack where you can receive GCN messages
-
 ## Quickstart 
 
 ### Requirements:
@@ -63,3 +62,6 @@ Where:
 * -j or --json : Set the formate of the received message from broker
 * -F or --config-file : Path to client'c configuration file
 * -X or --config : Set client configuration via prop=val. Can be specified multiple times.
+
+### Documentation:
+https://hop-slack-app.readthedocs.io/en/latest/
