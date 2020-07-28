@@ -3,6 +3,8 @@
 import pytest
 from unittest.mock import patch
 import configparser
+import json
+from hop.models import GCNCircular
 from hop.apps.slack import slack_app
 from hop.apps.slack import __version__
 
@@ -26,7 +28,8 @@ def test_message_preparation_for_slack(shared_datadir):
     ).read_text()
     with patch("hop.apps.slack.slack_app.json.dumps") as mock_load:
         mock_load.return_value = test_content
-        test_result = slack_app.prepare_message(test_content)
+        circular = GCNCircular(**json.loads(test_content))
+        test_result = slack_app.prepare_message(circular)
         with open("file2.txt", "w") as f:
             f.write(test_result)
         assert (
