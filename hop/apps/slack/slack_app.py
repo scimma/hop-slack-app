@@ -119,7 +119,7 @@ def prepare_message(gcn):
         Returns:
             Formated GCN message for pretty printing
     """
-    gcn_json = json.dumps(gcn.asdict())
+    gcn_dict = gcn.asdict()
     return (
         "*Title:* {title}\n"
         "*Number:* {number}\n"
@@ -127,7 +127,7 @@ def prepare_message(gcn):
         "*Date*: {date}\n"
         "*From:* {from}\n\n"
         "{body}"
-    ).format(**gcn_json["header"], body=gcn_json["body"])
+    ).format(**gcn_dict["header"], body=gcn_dict["body"])
 
 
 # ------------------------------------------------
