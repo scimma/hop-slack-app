@@ -6,9 +6,7 @@ __description__ = "Post received messages to Slack channel"
 import argparse
 import configparser
 import requests
-import json
 
-from hop import Stream
 from hop import cli
 from hop import io
 
