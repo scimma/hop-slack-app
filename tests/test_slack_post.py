@@ -26,18 +26,16 @@ def test_message_preparation_for_slack(shared_datadir):
     test_content = (
         shared_datadir / "test_data" / "26936_gcn_circular_dict.json"
     ).read_text()
-    with patch("hop.apps.slack.slack_app.json.dumps") as mock_load:
-        mock_load.return_value = test_content
-        circular = GCNCircular(**json.loads(test_content))
-        test_result = slack_app.prepare_message(circular)
-        with open("file2.txt", "w") as f:
-            f.write(test_result)
-        assert (
-            test_result
-            == (
-                shared_datadir / "expected_data" / "26936_gcn_circular_PP.txt"
-            ).read_text()
-        )
+    circular = GCNCircular(**json.loads(test_content))
+    test_result = slack_app.prepare_message(circular)
+    with open("file2.txt", "w") as f:
+        f.write(test_result)
+    assert (
+        test_result
+        == (
+            shared_datadir / "expected_data" / "26936_gcn_circular_PP.txt"
+        ).read_text()
+    )
 
 
 def test_parse_slack_config(shared_datadir, capsys):
